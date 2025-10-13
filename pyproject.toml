@@ -1,0 +1,50 @@
+[project]
+name = "edfs"
+version = "0.1.0"
+description = "Emotional vocalization classification workflows for UC Berkeley DS207 (Fall 2025)."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Nithya Srinivasan", email = "nsrinivasan@berkeley.edu" },
+    { name = "Kris Mehra", email = "kris.mehra@berkeley.edu" },
+    { name = "Bjorn Melin", email = "bjorn_melin@berkeley.edu" },
+    { name = "Pratheek Sankeshi", email = "psankesh9@berkeley.edu" },
+]
+keywords = [
+    "emotion-recognition",
+    "speech-processing",
+    "audio",
+    "machine-learning",
+    "tensorflow",
+    "uc-berkeley",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: Other/Proprietary License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+]
+dependencies = [
+    "ipykernel>=6.29.0",
+    "ipywidgets>=8.1.0",
+    "jupyterlab>=4.4.0",
+    "notebook>=7.4.0",
+    "librosa>=0.10.0",
+    "matplotlib>=3.10.0",
+    "numpy>=1.26.0",
+    "pandas>=2.0.0",
+    "scikit-learn>=1.5.0",
+    "seaborn>=0.12.0",
+    "tensorflow>=2.17.0",
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pylint>=3.3.0",
+    "pytest>=8.3",
+    "ruff>=0.13.0",
+]
