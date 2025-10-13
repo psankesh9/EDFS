@@ -7,7 +7,7 @@
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-FF9900?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![librosa](https://img.shields.io/badge/librosa-AF75FF?style=for-the-badge&labelColor=4C1D95&color=AF75FF)](https://librosa.org/)
-[![Badge for Audio Emotion Recognition project using RAVDESS dataset, displaying text Audio Emotion Recognition and RAVDESS](https://img.shields.io/badge/Audio%20Emotion%20Recognition-RAVDESS-6A4C93?style=for-the-badge&labelColor=2D1B69&color=6A4C93)](https://doi.org/10.1371/journal.pone.0196391)
+[![Audio Emotion Recognition](https://img.shields.io/badge/Audio%20Emotion%20Recognition-RAVDESS-6A4C93?style=for-the-badge&labelColor=2D1B69&color=6A4C93)](https://doi.org/10.1371/journal.pone.0196391)
 
 ## Abstract
 
@@ -168,4 +168,4 @@ Livingstone, S.R., & Russo, F.A. (2018). The Ryerson Audio-Visual Database of Em
 
 ---
 
-For project updates and collaboration, refer to the course repository: <https://github.com/psankesh9/EDFS>.
+For project updates and collaboration, refer to this repository: <https://github.com/psankesh9/EDFS>.
