@@ -23,6 +23,61 @@ Emotion carries non-verbal cues that shape human communication, yet contemporary
 - **Scope:** 1,440 speech recordings from 24 actors across eight emotions (neutral, calm, happy, sad, angry, fearful, surprise, disgust) with labeled intensity, statement, repetition, modality, and actor identifiers.
 - **Balance:** Speech recordings are balanced across speakers and emotions, with the exception of the neutral class (96 samples versus 192 for other emotions).
 - **Access:** Follow the dataset license requirements at <https://zenodo.org/record/1188976>. Raw audio files are not redistributed in this repository; store them under a local `data/` directory.
+- **License:** CC BY-NC-SA 4.0 (non-commercial use only).
+
+### Dataset Download Script
+
+This repository includes an automated download script supporting three sources:
+
+| Source | Command | Files | Notes |
+|--------|---------|-------|-------|
+| **Zenodo** (default) | `python scripts/download_ravdess.py` | 1,440 (speech) or 2,452 (both) | Canonical source with integrity verification |
+| **Hugging Face** | `python scripts/download_ravdess.py --source huggingface` | 1,440 | Faster, cached downloads (speech only) |
+| **Deep Lake** | `python scripts/download_ravdess.py --source deeplake` | 1,440 | Streaming support (speech only) |
+
+**Quick Start:**
+
+```bash
+# Install dependencies and download dataset
+uv sync
+python scripts/download_ravdess.py
+```
+
+**All Options:**
+
+```bash
+python scripts/download_ravdess.py --help
+
+Options:
+  --source {zenodo,huggingface,deeplake}  Download source (default: zenodo)
+  --subset {speech,song,both}             Subset to download (default: speech)
+  --output PATH                           Custom output directory
+  --force                                 Overwrite existing files
+  --license                               Display CC BY-NC-SA 4.0 license notice
+  --quiet                                 Suppress progress bars
+```
+
+**Alternative Sources (require optional dependencies):**
+
+```bash
+# Install optional dependencies for Hugging Face or Deep Lake
+uv pip install -e '.[download]'
+
+# Then use alternative source
+python scripts/download_ravdess.py --source huggingface
+```
+
+**Output Structure:**
+
+```text
+data/raw/ravdess/
+├── Actor_01/
+│   ├── 03-01-01-01-01-01-01.wav
+│   └── ...
+├── Actor_24/
+│   └── ...
+└── manifest.json          # Download metadata
+```
 
 ## Data Preparation Pipeline
 
@@ -61,7 +116,9 @@ All models will share speaker-independent splits (80% train, 10% validation, 10%
 ```text
 .
 ├── notebooks/   # Jupyter notebooks covering EDA, preprocessing, and prototype modeling
-└── reports/     # Milestone reports and documentation artifacts
+├── reports/     # Milestone reports and documentation artifacts
+├── scripts/     # Utility scripts (dataset download, preprocessing)
+└── tests/       # Unit tests
 ```
 
 Add a local `data/` directory (ignored by Git) to host licensed audio files and derived features.
@@ -99,46 +156,42 @@ Add a local `data/` directory (ignored by Git) to host licensed audio files and 
    source .venv/bin/activate        # Windows: .venv\Scripts\activate
    ```
 
-3. **Install project dependencies**  
-   Use uv’s pip-compatible interface to install the libraries relied upon by the notebooks:
+3. **Install project dependencies**
 
-   ```bash
-   uv pip install pandas numpy librosa scikit-learn matplotlib seaborn tensorflow tqdm ipykernel
-   ```
-
-   If you maintain a `requirements.txt` or lock file, replace the command above with:
-
-   ```bash
-   uv pip install -r requirements.txt
-   ```
-
-   or, for uv-managed projects:
+   This project uses `pyproject.toml` for dependency management. Install all dependencies with:
 
    ```bash
    uv sync
    ```
 
-   (see the [uv project management documentation](https://docs.astral.sh/uv/concepts/projects/) for details on lock files and workspace support).
+   For development dependencies (pytest, ruff, pylint):
+
+   ```bash
+   uv sync --extra dev
+   ```
 
    **Alternative: pip-only environment**
 
-   If `uv` is unavailable, fall back to Python’s built-in tooling. First ensure Python 3.11 is installed (see [python.org/downloads](https://www.python.org/downloads/)).
+   If `uv` is unavailable, use Python's built-in tooling:
 
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate        # Windows: .venv\Scripts\activate
    pip install --upgrade pip
-   pip install pandas numpy librosa scikit-learn matplotlib seaborn tensorflow tqdm ipykernel
+   pip install -e .                 # Install from pyproject.toml
    ```
 
-   With a `requirements.txt`, use:
+4. **Acquire data assets**
+
+   Download the RAVDESS dataset using the provided script:
 
    ```bash
-   pip install -r requirements.txt
+   python scripts/download_ravdess.py
    ```
 
-4. **Acquire data assets**  
-   Download the RAVDESS dataset to `data/raw/ravdess/` (ignored by Git) and update notebook paths if necessary.
+   This downloads ~200 MB of audio files to `data/raw/ravdess/`. See [Dataset Download Script](#dataset-download-script) for all options including alternative sources and custom output directories.
+
+   **Manual Alternative:** Download directly from [Zenodo](https://zenodo.org/record/1188976) and extract to `data/raw/ravdess/`.
 5. **Run the notebooks**  
    Execute the preprocessing and EDA notebooks in the following order:
    1. `Final_Project_Mileston_Draft_v1d.ipynb` – feature engineering pipeline
